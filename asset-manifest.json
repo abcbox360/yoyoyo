@@ -1,0 +1,11 @@
+{
+  "files": {
+    "main.js": "/yoyoyo/static/js/main.8bce36c3.js",
+    "static/media/loading.gif": "/yoyoyo/static/media/loading.66e2f987883bccaf7368.gif",
+    "index.html": "/yoyoyo/index.html",
+    "main.8bce36c3.js.map": "/yoyoyo/static/js/main.8bce36c3.js.map"
+  },
+  "entrypoints": [
+    "static/js/main.8bce36c3.js"
+  ]
+}
