@@ -59,11 +59,12 @@ margin: 10px auto;
 const TableTitle = styled.div`
 width: 15%;
 text-align:center;
-padding: 0.2rem;
+padding: 0.2rem 0;
 border-right: 0.1rem dashed rgba(0,0,0,0.2);
 overflow: hidden;
 text-overflow: ellipsis;
 white-space: nowrap;
+transition: .1s;
 &:nth-child(2) {
     width:25%;
 }
@@ -73,6 +74,7 @@ white-space: nowrap;
 @media screen and (max-width:675px) {
     width:25%;
     border: none;
+    padding: 0.2rem 0;
     &:nth-child(1) {
         width:30%;
     }
@@ -88,20 +90,24 @@ border: 0.1rem dashed rgba(0,0,0,0.2);
 cursor: pointer;
 box-shadow: 0 0 2px gray;
 border-radius: 10px;
+transition: .1s;
 &:first-child {
     border-top: 0.1rem dashed rgba(0,0,0,0.2);
 }
 &:hover {
-    background: rgba(0,0,0,0.2);
+    background: rgba(0,0,0,0.1);
     transform: scale(1.01);
+    box-shadow: 5px 5px 5px gray;
 }
 &:first-child:hover {
     background: none;
     transform: none;
     cursor: auto;
+    box-shadow: 0 0 2px gray;
 }
 ${props => props.$active && `
     background: rgb(256,256,200);
+    box-shadow: 5px 5px 5px gray;
     transform: scale(1.01);
     z-index: 2;
     &:hover {
@@ -114,8 +120,8 @@ ${props => props.$active && `
 @media screen and (max-width:675px) {
     flex-wrap: wrap;
     margin: 0.2rem;
-    &:first-child:hover {
-        background: rgba(0,0,0,0.2);
+    &:first-child {
+        display:none;
     }
 }
 `
@@ -144,15 +150,21 @@ cursor: pointer;
 width: 70px;
 z-index: 2;
 top: -40px;
-left: 60%;
+left: 70%;
 font-size: 16px;
 display: flex;
 justify-content: space-around;
 align-items: center;
+@media screen and (max-width:675px) {
+    left: 53%;
+}
 `
 const DeleteButton = styled(EditButton)`
-left: calc(60% + 75px);
+left: calc(70% + 85px);
 background: red;
+@media screen and (max-width:675px) {
+    left: calc(53% + 85px);
+}
 `
 
 function HomePage() {
@@ -257,14 +269,14 @@ function HomePage() {
         </CreateListContainer>
         <Ok onClick={handleCreateData}>新增</Ok>
         <LastList>
-            {ww > 675 && <TableRow>
+            <TableRow>
                 <TableTitle>日期</TableTitle>
                 <TableTitle>項目</TableTitle>
                 <TableTitle>金額</TableTitle>
                 <TableTitle>銀行</TableTitle>
                 <TableTitle>類別</TableTitle>
                 <TableTitle>誰花的</TableTitle>
-            </TableRow>}
+            </TableRow>
             {lists.map(list => <TableRow
                 key={list.id}
                 id={list.id}

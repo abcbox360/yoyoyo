@@ -1,5 +1,6 @@
 import styled from 'styled-components'
 import { useState } from 'react'
+import Loading from "./Loading"
 
 const Container = styled.div`
 position: relative;
@@ -12,9 +13,11 @@ justify-content: center;
 
 function Login (props) {
 const [password, setPassword] = useState('')
+const [loading, setLoading] = useState(false)
 const { setLogin } = props
 const url = "https://script.google.com/macros/s/AKfycbwK8T6ckUHeHT0Rl1QWFMz6XFnQWu9RFmLUW4VZ9fQVvSpnpA0TCBk3M1I0AMh-o17q/exec"
 const handleCheck = () => {
+    setLoading(true)
     fetch(url, {
         method: "POST",
         body: JSON.stringify({
@@ -23,11 +26,17 @@ const handleCheck = () => {
         })
     })
     .then(response => response.json())
-    .then((data) => { data.code === 'pass' ? setLogin(true): alert('錯誤')});
+    .then((data) => {if(data.code === 'pass'){setLogin(true)}else{alert('錯誤')};setLoading(true) });
 }
 
     return <Container>
-        <input type="password" onChange={e=>setPassword(e.target.value)}></input>
+        {loading && <Loading />}
+        <input 
+        type="password" 
+        onChange={e=>{setPassword(e.target.value)}} 
+        onKeyDown={e=>{e.key === 'Enter' && handleCheck()}} 
+        >
+        </input>
         <button onClick={handleCheck}>確定</button>
     </Container>
 }
